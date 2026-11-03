@@ -3,19 +3,21 @@
 <title>Roll Guard Privacy Policy</title>
 <style>body{font-family:system-ui,sans-serif;max-width:760px;margin:24px auto;padding:0 16px;line-height:1.65;color:#222}h1{font-size:22px}h2{font-size:17px;margin-top:26px}td,th{border:1px solid #ccc;padding:6px;font-size:14px;vertical-align:top}table{border-collapse:collapse;width:100%}</style></head><body>
 <h1>Roll Guard — Privacy Policy</h1>
-<p>Effective: November 2, 2026 · Operator: Jovi Games · Contact: jovigames@proton.me · <a href="privacy-ko.html">한국어</a></p>
+<p>Effective: November 3, 2026 · Operator: Jovi Games · Contact: jovigames@proton.me · <a href="privacy-ko.html">한국어</a></p>
 <h2>1. Data we process and why</h2>
-<p>Roll Guard ("the Game") has no account registration. The operator does not collect information that directly identifies you (such as name, phone number or email) and does not store user data on its own servers. Game progress (spirits, currencies, records) is stored on your device and, if you link Google Play Games, in your Google account's Saved Games storage.</p>
-<p>The third-party services below process the following data. The processor and overseas recipient is Google LLC (United States); data is transmitted over the internet while the app is in use.</p>
+<p>Roll Guard ("the Game") has no account registration. The operator does not collect information that directly identifies you (such as name, phone number or email) The operator's server stores only the friend-invite data in the table below. Game progress (spirits, currencies, records) is stored on your device and, if you link Google Play Games, in your Google account's Saved Games storage. The Game does not use the location permission.</p>
+<p>The services below process the following data. For Google services, the processor and overseas recipient is Google LLC (United States); data is transmitted over the internet while the app is in use.</p>
 <table><tr><th>Service</th><th>Data</th><th>Purpose</th><th>Legal basis (GDPR regions)</th></tr>
 <tr><td>Google AdMob</td><td>Advertising ID, device information, IP address (approximate location), ad interactions, app diagnostics</td><td>Showing and measuring ads, fraud prevention, personalized ads (if you consent)</td><td>Consent (personalized ads); legitimate interests (fraud prevention, measurement)</td></tr>
 <tr><td>Google Play Billing</td><td>Purchase history such as order number</td><td>Payment, delivery, restoring purchases</td><td>Performance of a contract</td></tr>
-<tr><td>Google Play Games (if linked)</td><td>Play Games profile, scores, saved game data</td><td>Sign-in, leaderboards, cloud save</td><td>Consent (you choose to link)</td></tr></table>
-<p>Retention and handling follow the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>. If you stop using or delete the app, further transmission stops.</p>
+<tr><td>Google Play Games (if linked)</td><td>Play Games profile, scores, saved game data</td><td>Sign-in, leaderboards, cloud save</td><td>Consent (you choose to link)</td></tr>
+<tr><td>Operator's server (AWS Seoul region EC2, processor: Amazon Web Services)</td><td>Hash of a device identifier (the Android per-app device ID or a random value, converted with SHA-256; the original is never sent), your invite code, the invite code you entered (invite relationship), times your friend steps were reached (code entry, tutorial, stages 5 and 15, day 7 login), and reward delivery records. No name, email, advertising ID or IP address is stored (the IP is held in memory for one minute only to block excessive requests).</td><td>Friend invite rewards, fraud prevention</td><td>Legitimate interests (invite rewards, fraud prevention)</td></tr></table>
+<p>If you choose to share a friend invite, the invite text goes to the messenger you select, under that messenger's policy.</p>
+<p>For Google services, retention and handling follow the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>. <b>Operator's server:</b> the data in the table in section 1 is sent over an encrypted connection (HTTPS) to Amazon Web Services servers in Seoul, Republic of Korea when you use the invite screen or reach a friend step, and server operation is entrusted to Amazon Web Services (<a href="https://aws.amazon.com/privacy/">AWS Privacy Notice</a>). For users outside Korea, this is a transfer to the Republic of Korea. If you stop using or delete the app, further transmission stops.</p>
 <h2>2. Retention and deletion</h2>
-<p>Game progress is deleted from your device when you uninstall the app or use Settings &gt; Reset data. Currencies such as gems may be lost with it, so linking a Google account is recommended. Cloud saves can be deleted through data management in the Google Play Games app.</p>
+<p>Game progress is deleted from your device when you uninstall the app or use Settings &gt; Reset data. Currencies such as gems may be lost with it, so linking a Google account is recommended. Cloud saves can be deleted through data management in the Google Play Games app. Invite records on the operator's server are deleted automatically 400 days after the last record. If the server stops, the Game keeps working and only invite rewards are delayed.</p>
 <h2>3. Your rights</h2>
-<p>You may request access, correction, deletion or restriction of processing, and in GDPR regions you may also object, request portability and complain to a supervisory authority. Because the operator holds no identifying data, data on your device and Google account can be managed directly as described above and in your Google account settings. Other requests can be sent to the address below.</p>
+<p>You may request access, correction, deletion or restriction of processing, and in GDPR regions you may also object, request portability and complain to a supervisory authority. Data on your device and Google account can be managed directly as described above and in your Google account settings. To delete records on the operator's server, email the address below with your invite code. Other requests can be sent to the same address.</p>
 <h2>4. Personalized ads: consent and withdrawal</h2>
 <p>Where consent is required, a consent screen appears when the Game starts, and you can change your choice at any time in Settings &gt; Ad privacy settings. You can also reset or delete your advertising ID in your device's Google ads settings.</p>
 <h2>5. Children</h2>
@@ -23,7 +25,7 @@
 <h2>6. In-app purchases</h2>
 <p>Refunds are handled through Google Play under its refund policy and the consumer laws of your country. Digital items are delivered immediately upon purchase.</p>
 <h2>7. Security</h2>
-<p>The operator does not store user data itself, and communication with third-party services uses encrypted connections.</p>
+<p>Communication with the operator's server and with third-party services uses encrypted connections (HTTPS), and the operator's server stores device identifiers only as hashes.</p>
 <h2>8. Contact</h2>
 <p>Jovi Games privacy contact: jovigames@proton.me</p>
 <p>Changes to this policy will be posted on this page with a new effective date.</p>
