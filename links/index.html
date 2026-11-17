@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jovi Games</title>
+<style>
+  :root { --bg:#1d1446; --card:#2b2068; --ink:#ffffff; --sub:#c9c3f0; --gold:#ffd25e; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:linear-gradient(160deg,#160f3a,#3a2a9a); color:var(--ink); font-family:system-ui,-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif; }
+  main { max-width:560px; margin:0 auto; padding:28px 16px 48px; }
+  header { text-align:center; margin-bottom:22px; }
+  header img { width:96px; height:96px; border-radius:24px; }
+  h1 { margin:10px 0 2px; font-size:26px; }
+  .tag { color:var(--sub); font-size:14px; }
+  .lang { text-align:center; margin:10px 0 18px; font-size:13px; }
+  .lang a { color:var(--gold); margin:0 6px; }
+  .ch { display:flex; gap:8px; justify-content:center; margin-bottom:22px; flex-wrap:wrap; }
+  .ch a { background:#ffffff1a; color:var(--ink); text-decoration:none; padding:8px 14px; border-radius:20px; font-size:14px; }
+  .game { display:flex; gap:12px; align-items:center; background:var(--card); border-radius:16px; padding:12px; margin-bottom:10px; }
+  .game img { width:56px; height:56px; border-radius:14px; flex:none; background:#0003; }
+  .game b { display:block; font-size:16px; }
+  .game span { color:var(--sub); font-size:13px; }
+  .game a.btn { margin-left:auto; flex:none; background:var(--gold); color:#2a1a00; font-weight:700; text-decoration:none; padding:8px 12px; border-radius:12px; font-size:13px; }
+  footer { text-align:center; color:var(--sub); font-size:12px; margin-top:24px; }
+  [data-en] { display:none; } body.en [data-en] { display:inline; } body.en [data-ko] { display:none; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <img src="profile.png" alt="Jovi Games">
+    <h1>Jovi Games</h1>
+    <div class="tag"><span data-ko>운빨·손맛 터지는 캐주얼 게임</span><span data-en>Small games. Big fun.</span></div>
+  </header>
+  <div class="lang"><a href="#" onclick="document.body.classList.remove('en');return false">한국어</a>|<a href="#" onclick="document.body.classList.add('en');return false">English</a></div>
+  <div class="ch">
+    <a href="https://www.youtube.com/@jovigamestudio">YouTube</a>
+    <a href="https://www.tiktok.com/@jovigamestudio">TikTok</a>
+    <a href="https://www.instagram.com/jovigamestudio/">Instagram</a>
+  </div>
+  <!-- 게임 목록: 비공개 테스트 중에는 '테스트 참여' 링크(apps/testing), 출시 뒤에는 스토어 링크(store/apps/details)로 바꾼다. -->
+  <div class="game"><img src="icons/01.png" alt=""><div><b data-ko>역전 강림: 정령 소환 디펜스</b><b data-en>Last-Second Legend: Spirit TD</b><span data-ko>랜덤 소환·합성 디펜스</span><span data-en>Random summon & merge defense</span></div><a class="btn" href="https://play.google.com/apps/testing/com.rollguard.game"><span data-ko>테스트 참여</span><span data-en>Join test</span></a></div>
+  <div class="game"><img src="icons/02.png" alt=""><div><b data-ko>마지막 방벽: 고철 터렛 디펜스</b><b data-en>Final Rampart: Scrap Turret TD</b><span data-ko>방벽 포탑으로 괴수 떼를 막아라</span><span data-en>Hold the wall against the horde</span></div><a class="btn" href="https://play.google.com/apps/testing/com.deadwall.game"><span data-ko>테스트 참여</span><span data-en>Join test</span></a></div>
+  <div class="game"><img src="icons/03.png" alt=""><div><b data-ko>꽃다발 속 비밀: 꽃말 암호</b><b data-en>Secret in the Bouquet</b><span data-ko>합치면 드러나는 비밀</span><span data-en>Merge to reveal the secret</span></div><a class="btn" href="https://play.google.com/apps/testing/com.petalsecrets.game"><span data-ko>테스트 참여</span><span data-en>Join test</span></a></div>
+  <div class="game"><img src="icons/04.png" alt=""><div><b data-ko>너구리 한탕: 주사위 보드 대작전</b><b data-en>Raccoon Roll: Alley Loot Dice</b><span data-ko>주사위 굴려 도시를 턴다</span><span data-en>Roll the dice, rob the city</span></div><a class="btn" href="https://play.google.com/apps/testing/com.raccoonroll.game"><span data-ko>테스트 참여</span><span data-en>Join test</span></a></div>
+  <div class="game"><img src="icons/05.png" alt=""><div><b data-ko>뭐가 걸렸다: 심해 괴어 낚시</b><b data-en>Something's Hooked: Fishing</b><span data-ko>심해에서 뭐가 걸렸다</span><span data-en>Something's on the line</span></div><a class="btn" href="https://play.google.com/apps/testing/com.abyssline.game"><span data-ko>테스트 참여</span><span data-en>Join test</span></a></div>
+  <div class="game"><img src="icons/06.png" alt=""><div><b data-ko>포지링: 대장간 키우기</b><b data-en>Forgeling: Idle Blacksmith</b><span data-ko>두드려 만들고 강해져라</span><span data-en>Forge, temper, grow</span></div><a class="btn" href="https://play.google.com/apps/testing/com.forgeling.game"><span data-ko>테스트 참여</span><span data-en>Join test</span></a></div>
+  <div class="game"><img src="icons/07.png" alt=""><div><b data-ko>갈림길의 왕: 로그라이트 RPG</b><b data-en>King of Forks: Roguelite RPG</b><span data-ko>갈림길마다 내가 고른다</span><span data-en>Every fork is your choice</span></div><a class="btn" href="https://play.google.com/apps/testing/com.wayfork.game"><span data-ko>테스트 참여</span><span data-en>Join test</span></a></div>
+  <div class="game"><img src="icons/08.png" alt=""><div><b data-ko>초신성 합체: 별 합치기</b><b data-en>Supernova Fusion: Star Merge</b><span data-ko>별을 쏟고 합쳐라</span><span data-en>Pour. Merge. Go supernova.</span></div><a class="btn" href="https://play.google.com/apps/testing/com.starpour.game"><span data-ko>테스트 참여</span><span data-en>Join test</span></a></div>
+  <div class="game"><img src="icons/09.png" alt=""><div><b data-ko>브릭브레이브: 블록 용사</b><b data-en>Brickbrave</b><span data-ko>블록을 지워 영웅이 싸운다</span><span data-en>Clear blocks, heroes strike</span></div><a class="btn" href="https://play.google.com/apps/testing/com.brickbrave.game"><span data-ko>테스트 참여</span><span data-en>Join test</span></a></div>
+  <div class="game"><img src="icons/10.png" alt=""><div><b data-ko>용열차 서바이버</b><b data-en>Dragon Train Survivor</b><span data-ko>열차로 휘감아 터뜨려라</span><span data-en>Coil the horde, blow it up</span></div><a class="btn" href="https://play.google.com/apps/testing/com.coilfire.game"><span data-ko>테스트 참여</span><span data-en>Join test</span></a></div>
+  <div class="game"><img src="icons/11.png" alt=""><div><b data-ko>몬스터 교배 농장: 알 부화 수집</b><b data-en>Monster Breeding Ranch: Hatch</b><span data-ko>교배로 신화 몬스터를 키워라</span><span data-en>Breed your way to a mythic</span></div><a class="btn" href="https://play.google.com/apps/testing/com.nestborn.game"><span data-ko>테스트 참여</span><span data-en>Join test</span></a></div>
+  <div class="game"><img src="icons/12.png" alt=""><div><b data-ko>와르르 성: 공성 파괴</b><b data-en>Wobble Keep: Sky Isle Raid</b><span data-ko>던지고 무너뜨려라</span><span data-en>Launch it. Topple it.</span></div><a class="btn" href="https://play.google.com/apps/testing/com.topplekeep.game"><span data-ko>테스트 참여</span><span data-en>Join test</span></a></div>
+  <footer><span data-ko>문의</span><span data-en>Contact</span>: jovigames@proton.me · <span data-ko>모든 게임에 광고·확률형 아이템이 포함될 수 있습니다</span><span data-en>Games may contain ads and in-game random items</span></footer>
+</main>
+</body>
+</html>
