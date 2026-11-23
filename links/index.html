@@ -1,29 +1,40 @@
 <!doctype html>
+<!-- 프로필 링크 페이지(jovigames.github.io/links/) — 출시 후 설치용 (mkt-a, 2026-11-22, 사용자: "출시 후 마케팅 자료로, 거의 원클릭으로 다운로드").
+     YouTube 쇼츠는 설명·댓글 링크를 누를 수 없어서(2023-08 YouTube 정책) 세 채널 모두 프로필 링크 → 이 페이지 → Play 앱으로 간다.
+     채널별 프로필 링크: ?src=youtube / ?src=tiktok / ?src=instagram (Play Console 획득 보고서에서 채널별로 보임).
+     출시한 게임은 아래 GAMES 의 live 를 true 로 바꾸고 날짜(day)를 적으면 맨 위에 크게 뜬다. 게시는 매니저. -->
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Jovi Games</title>
 <style>
-  :root { --bg:#1d1446; --card:#2b2068; --ink:#ffffff; --sub:#c9c3f0; --gold:#ffd25e; }
+  :root { --bg:#1d1446; --card:#2b2068; --ink:#ffffff; --sub:#c9c3f0; --gold:#ffd25e; --gold-ink:#2a1a00; }
   * { box-sizing:border-box; }
-  body { margin:0; background:linear-gradient(160deg,#160f3a,#3a2a9a); color:var(--ink); font-family:system-ui,-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif; }
-  main { max-width:560px; margin:0 auto; padding:28px 16px 48px; }
-  header { text-align:center; margin-bottom:22px; }
-  header img { width:96px; height:96px; border-radius:24px; }
-  h1 { margin:10px 0 2px; font-size:26px; }
+  body { margin:0; background:linear-gradient(160deg,#160f3a,#3a2a9a); color:var(--ink); font-family:system-ui,-apple-system,"Apple SD Gothic Neo","Noto Sans KR","Noto Sans JP",sans-serif; min-height:100vh; }
+  main { max-width:560px; margin:0 auto; padding:24px max(16px, env(safe-area-inset-right)) 48px max(16px, env(safe-area-inset-left)); }
+  header { text-align:center; margin-bottom:14px; }
+  header img { width:72px; height:72px; border-radius:20px; }
+  h1 { margin:8px 0 2px; font-size:24px; }
   .tag { color:var(--sub); font-size:14px; }
-  .lang { text-align:center; margin:10px 0 18px; font-size:13px; }
-  .lang a { color:var(--gold); margin:0 6px; }
-  .ch { display:flex; gap:8px; justify-content:center; margin-bottom:22px; flex-wrap:wrap; }
-  .ch a { background:#ffffff1a; color:var(--ink); text-decoration:none; padding:8px 14px; border-radius:20px; font-size:14px; }
+  .lang { display:flex; justify-content:center; margin:10px 0 16px; }
+  .lang select { font:inherit; font-size:13px; color:var(--ink); background:#ffffff1a; border:1px solid #ffffff33; border-radius:10px; padding:6px 10px; }
+  .hero { background:var(--card); border:2px solid var(--gold); border-radius:20px; padding:16px; margin-bottom:16px; text-align:center; }
+  .hero img { width:96px; height:96px; border-radius:24px; }
+  .hero b { display:block; font-size:19px; margin:8px 0 2px; }
+  .hero .gift { color:var(--gold); font-size:14px; margin:4px 0 12px; }
+  .btn { display:flex; align-items:center; justify-content:center; gap:8px; background:var(--gold); color:var(--gold-ink); font-weight:800; text-decoration:none; border-radius:14px; min-height:52px; font-size:17px; padding:8px 14px; }
+  .btn svg { width:20px; height:20px; }
   .game { display:flex; gap:12px; align-items:center; background:var(--card); border-radius:16px; padding:12px; margin-bottom:10px; }
   .game img { width:56px; height:56px; border-radius:14px; flex:none; background:#0003; }
-  .game b { display:block; font-size:16px; }
-  .game span { color:var(--sub); font-size:13px; }
-  .game a.btn { margin-left:auto; flex:none; background:var(--gold); color:#2a1a00; font-weight:700; text-decoration:none; padding:8px 12px; border-radius:12px; font-size:13px; }
-  footer { text-align:center; color:var(--sub); font-size:12px; margin-top:24px; }
-  [data-en] { display:none; } body.en [data-en] { display:inline; } body.en [data-ko] { display:none; }
+  .game div { min-width:0; }
+  .game b { display:block; font-size:15px; }
+  .game .btn { margin-left:auto; flex:none; min-height:40px; font-size:14px; padding:6px 12px; }
+  .soon { margin-left:auto; flex:none; color:var(--sub); font-size:12px; border:1px solid #ffffff33; border-radius:10px; padding:6px 10px; }
+  .ch { display:flex; gap:8px; justify-content:center; margin:22px 0 8px; flex-wrap:wrap; }
+  .ch a { background:#ffffff1a; color:var(--ink); text-decoration:none; padding:8px 14px; border-radius:20px; font-size:14px; }
+  footer { text-align:center; color:var(--sub); font-size:12px; margin-top:16px; line-height:1.8; }
+  footer a { color:var(--ink); }
 </style>
 </head>
 <body>
@@ -31,28 +42,93 @@
   <header>
     <img src="profile.png" alt="Jovi Games">
     <h1>Jovi Games</h1>
-    <div class="tag"><span data-ko>운빨·손맛 터지는 캐주얼 게임</span><span data-en>Small games. Big fun.</span></div>
+    <div class="tag" id="tag"></div>
   </header>
-  <div class="lang"><a href="#" onclick="document.body.classList.remove('en');return false">한국어</a>|<a href="#" onclick="document.body.classList.add('en');return false">English</a></div>
+  <div class="lang"><select id="hl" aria-label="Language"></select></div>
+  <div id="hero"></div>
+  <div id="list"></div>
   <div class="ch">
     <a href="https://www.youtube.com/@jovigamestudio">YouTube</a>
     <a href="https://www.tiktok.com/@jovigamestudio">TikTok</a>
     <a href="https://www.instagram.com/jovigamestudio/">Instagram</a>
   </div>
-  <!-- 게임 목록: 비공개 테스트 중에는 '테스트 참여' 링크(apps/testing), 출시 뒤에는 스토어 링크(store/apps/details)로 바꾼다. -->
-  <div class="game"><img src="icons/01.png" alt=""><div><b data-ko>역전 강림: 정령 소환 디펜스</b><b data-en>Last-Second Legend: Spirit TD</b><span data-ko>랜덤 소환·합성 디펜스</span><span data-en>Random summon & merge defense</span></div><a class="btn" href="https://play.google.com/apps/testing/com.rollguard.game"><span data-ko>테스트 참여</span><span data-en>Join test</span></a></div>
-  <div class="game"><img src="icons/02.png" alt=""><div><b data-ko>마지막 방벽: 고철 터렛 디펜스</b><b data-en>Final Rampart: Scrap Turret TD</b><span data-ko>방벽 포탑으로 괴수 떼를 막아라</span><span data-en>Hold the wall against the horde</span></div><a class="btn" href="https://play.google.com/apps/testing/com.deadwall.game"><span data-ko>테스트 참여</span><span data-en>Join test</span></a></div>
-  <div class="game"><img src="icons/03.png" alt=""><div><b data-ko>꽃다발 속 비밀: 꽃말 암호</b><b data-en>Secret in the Bouquet</b><span data-ko>합치면 드러나는 비밀</span><span data-en>Merge to reveal the secret</span></div><a class="btn" href="https://play.google.com/apps/testing/com.petalsecrets.game"><span data-ko>테스트 참여</span><span data-en>Join test</span></a></div>
-  <div class="game"><img src="icons/04.png" alt=""><div><b data-ko>너구리 한탕: 주사위 보드 대작전</b><b data-en>Raccoon Roll: Alley Loot Dice</b><span data-ko>주사위 굴려 도시를 턴다</span><span data-en>Roll the dice, rob the city</span></div><a class="btn" href="https://play.google.com/apps/testing/com.raccoonroll.game"><span data-ko>테스트 참여</span><span data-en>Join test</span></a></div>
-  <div class="game"><img src="icons/05.png" alt=""><div><b data-ko>뭐가 걸렸다: 심해 괴어 낚시</b><b data-en>Something's Hooked: Fishing</b><span data-ko>심해에서 뭐가 걸렸다</span><span data-en>Something's on the line</span></div><a class="btn" href="https://play.google.com/apps/testing/com.abyssline.game"><span data-ko>테스트 참여</span><span data-en>Join test</span></a></div>
-  <div class="game"><img src="icons/06.png" alt=""><div><b data-ko>포지링: 대장간 키우기</b><b data-en>Forgeling: Idle Blacksmith</b><span data-ko>두드려 만들고 강해져라</span><span data-en>Forge, temper, grow</span></div><a class="btn" href="https://play.google.com/apps/testing/com.forgeling.game"><span data-ko>테스트 참여</span><span data-en>Join test</span></a></div>
-  <div class="game"><img src="icons/07.png" alt=""><div><b data-ko>갈림길의 왕: 로그라이트 RPG</b><b data-en>King of Forks: Roguelite RPG</b><span data-ko>갈림길마다 내가 고른다</span><span data-en>Every fork is your choice</span></div><a class="btn" href="https://play.google.com/apps/testing/com.wayfork.game"><span data-ko>테스트 참여</span><span data-en>Join test</span></a></div>
-  <div class="game"><img src="icons/08.png" alt=""><div><b data-ko>초신성 합체: 별 합치기</b><b data-en>Supernova Fusion: Star Merge</b><span data-ko>별을 쏟고 합쳐라</span><span data-en>Pour. Merge. Go supernova.</span></div><a class="btn" href="https://play.google.com/apps/testing/com.starpour.game"><span data-ko>테스트 참여</span><span data-en>Join test</span></a></div>
-  <div class="game"><img src="icons/09.png" alt=""><div><b data-ko>브릭브레이브: 블록 용사</b><b data-en>Brickbrave</b><span data-ko>블록을 지워 영웅이 싸운다</span><span data-en>Clear blocks, heroes strike</span></div><a class="btn" href="https://play.google.com/apps/testing/com.brickbrave.game"><span data-ko>테스트 참여</span><span data-en>Join test</span></a></div>
-  <div class="game"><img src="icons/10.png" alt=""><div><b data-ko>용열차 서바이버</b><b data-en>Dragon Train Survivor</b><span data-ko>열차로 휘감아 터뜨려라</span><span data-en>Coil the horde, blow it up</span></div><a class="btn" href="https://play.google.com/apps/testing/com.coilfire.game"><span data-ko>테스트 참여</span><span data-en>Join test</span></a></div>
-  <div class="game"><img src="icons/11.png" alt=""><div><b data-ko>몬스터 교배 농장: 알 부화 수집</b><b data-en>Monster Breeding Ranch: Hatch</b><span data-ko>교배로 신화 몬스터를 키워라</span><span data-en>Breed your way to a mythic</span></div><a class="btn" href="https://play.google.com/apps/testing/com.nestborn.game"><span data-ko>테스트 참여</span><span data-en>Join test</span></a></div>
-  <div class="game"><img src="icons/12.png" alt=""><div><b data-ko>와르르 성: 공성 파괴</b><b data-en>Wobble Keep: Sky Isle Raid</b><span data-ko>던지고 무너뜨려라</span><span data-en>Launch it. Topple it.</span></div><a class="btn" href="https://play.google.com/apps/testing/com.topplekeep.game"><span data-ko>테스트 참여</span><span data-en>Join test</span></a></div>
-  <footer><span data-ko>문의</span><span data-en>Contact</span>: jovigames@proton.me · <span data-ko>모든 게임에 광고·확률형 아이템이 포함될 수 있습니다</span><span data-en>Games may contain ads and in-game random items</span></footer>
+  <footer><div id="ads"></div><a id="privacy" href="privacy-ko.html"></a></footer>
 </main>
+<script>
+// 게임 목록. live: 출시했으면 true, day: 출시일(최근 출시가 맨 위). 아이콘은 icons/NN.png(최신 승인 아이콘으로 유지).
+const GAMES = [
+  { n:'01', pkg:'com.rollguard.game',    live:false, day:'', t:{"ko": "랜덤 정령 디펜스: 역전 강림", "en": "Random Spirit Defense: Legend", "ja": "ランダム精霊ディフェンス：逆転降臨", "zh-TW": "隨機精靈塔防：逆轉降臨", "de": "Geister-Defense: Legende", "fr": "Défense d'esprits : Légende", "es": "Defensa de espíritus: Leyenda", "pt-BR": "Defesa de Espíritos: Lenda"} },
+  { n:'02', pkg:'com.deadwall.game',     live:false, day:'', t:{"ko": "방벽 디펜스: 고철 터렛", "en": "Rampart Defense: Scrap Turret", "ja": "防壁ディフェンス：鉄くず砲台", "zh-TW": "壁壘塔防：廢鐵砲塔", "de": "Wall-Defense: Schrottgeschütz", "fr": "Défense rempart : Tourelles", "es": "Defensa muralla: Torretas", "pt-BR": "Defesa da Muralha: Torretas"} },
+  { n:'03', pkg:'com.petalsecrets.game', live:false, day:'', t:{"ko": "꽃다발 속 비밀: 꽃말 암호", "en": "Secret in the Bouquet", "zh-TW": "花束裡的秘密：花語密碼", "de": "Das Geheimnis im Strauß", "fr": "Le secret du bouquet", "es": "El secreto del ramo", "pt-BR": "O segredo do buquê"} },
+  { n:'04', pkg:'com.raccoonroll.game',  live:false, day:'', t:{"ko": "너구리 다이스: 한탕 보드", "en": "Raccoon Dice: Heist Board", "ja": "ラクーンダイス：お宝ボード", "zh-TW": "浣熊骰子：大盜棋盤", "de": "Waschbär-Würfel: Beutebrett", "fr": "Dés du Raton : Plateau Butin", "es": "Dados Mapache: Tablero Botín", "pt-BR": "Dados do Guaxinim: Assalto"} },
+  { n:'05', pkg:'com.abyssline.game',    live:true, day:'', t:{"ko": "뭐가 걸렸다: 심해 괴어 낚시", "en": "Something's Hooked: Fishing", "ja": "何かが掛かった：深海の怪魚釣り", "zh-TW": "有東西上鉤了：深海怪魚垂釣", "de": "Da beißt was an: Tiefsee", "fr": "Ça mord : Pêche au fanal", "es": "Algo picó: Pesca con farol", "pt-BR": "Fisgou algo: Pesca de Lanterna"} },
+  { n:'06', pkg:'com.forgeling.game',    live:false, day:'', t:{"ko": "불꽃 대장간 키우기: 포지링", "en": "Flame Forge Idle: Forgeling", "ja": "炎の鍛冶屋育成：Forgeling", "zh-TW": "烈焰鐵匠養成：Forgeling", "de": "Feuerschmiede: Forgeling", "fr": "Forge de feu idle : Forgeling", "es": "Forja de fuego idle: Forgeling", "pt-BR": "Forja de Fogo Idle: Forgeling"} },
+  { n:'07', pkg:'com.wayfork.game',      live:false, day:'', t:{"ko": "갈림길의 왕: 로그라이트 RPG", "en": "King of Forks: Roguelite RPG", "ja": "分かれ道の王：ローグライトRPG", "zh-TW": "岔路之王：Roguelite RPG", "de": "König der Wege: Roguelite-RPG", "fr": "Roi des carrefours: Roguelite", "es": "Rey de las encrucijadas: RPG", "pt-BR": "Rei das encruzilhadas: RPG"} },
+  { n:'08', pkg:'com.starpour.game',     live:false, day:'', t:{"ko": "초신성 합체: 별 합치기", "en": "Supernova Fusion: Star Merge", "ja": "超新星合体：星を合わせて大爆発", "zh-TW": "超新星合體：合成星星大爆發", "de": "Supernova Fusion: Sternfusion", "fr": "Supernova Fusion : étoiles", "es": "Supernova Fusion: estrellas", "pt-BR": "Supernova Fusion: estrelas"} },
+  { n:'09', pkg:'com.brickbrave.game',   live:false, day:'', t:{"ko": "브릭브레이브: 블록 용사", "en": "Brickbrave", "ja": "Brickbrave: ブロックヒーローズ", "zh-TW": "Brickbrave: 方塊英雄", "de": "Brickbrave: Blockhelden", "fr": "Brickbrave: Héros de blocs", "es": "Brickbrave: Héroes de bloques", "pt-BR": "Brickbrave: Heróis dos Blocos"} },
+  { n:'10', pkg:'com.coilfire.game',     live:false, day:'', t:{"ko": "용열차 키우기", "en": "Idle Dragon Train: Survivor", "ja": "ドラゴン列車育成", "zh-TW": "龍列車養成", "de": "Drachenzug Idle: Survivor", "fr": "Train Dragon Idle : Survivant", "es": "Tren Dragón Idle: Survivor", "pt-BR": "Trem Dragão Idle: Survivor"} },
+  { n:'11', pkg:'com.nestborn.game',     live:false, day:'', t:{"ko": "몬스터 교배 농장: 알 부화 수집", "en": "Monster Breeding Ranch: Hatch", "ja": "モンスター交配ファーム：卵を孵そう", "zh-TW": "怪獸配種農場：孵蛋收集", "de": "Monster-Zuchtfarm: Eier-RPG", "fr": "Ferme à monstres : éclosion", "es": "Granja de monstruos: Eclosión", "pt-BR": "Fazenda de monstros"} },
+  { n:'12', pkg:'com.topplekeep.game',   live:true, day:'', t:{"ko": "와르르 성: 공성 파괴", "en": "Wobble Keep: Sky Isle Raid", "ja": "ガラガラ城: Wobble Keep", "zh-TW": "嘩啦啦城堡: Wobble Keep", "de": "Wobble Keep: Himmelsinsel-Raid", "fr": "Wobble Keep : Raid céleste", "es": "Wobble Keep: Asalto celeste", "pt-BR": "Wobble Keep: Ataque nas ilhas"} },
+];
+const UI = {
+  ko:{name:'한국어', tag:'운빨·손맛 터지는 캐주얼 게임', btn:'클릭 한 번으로 설치', gift:'지금 시작하면 푸짐한 선물!', soon:'곧 출시', ads:'게임 내 광고, 확률형 아이템 포함', priv:'개인정보처리방침'},
+  en:{name:'English', tag:'Small games. Big fun.', btn:'Install in one tap', gift:'Start now and get a big gift!', soon:'Coming soon', ads:'Contains ads and in-game random items', priv:'Privacy policy'},
+  ja:{name:'日本語', tag:'運と手応えのカジュアルゲーム', btn:'ワンタップでインストール', gift:'今始めると豪華特典！', soon:'近日公開', ads:'ゲーム内広告・ランダム型アイテムを含みます', priv:'Privacy policy'},
+  'zh-TW':{name:'繁體中文', tag:'靠運氣也靠手感的休閒遊戲', btn:'一鍵安裝', gift:'現在開始就送豐富好禮！', soon:'即將推出', ads:'含遊戲內廣告及隨機型道具', priv:'Privacy policy'},
+  de:{name:'Deutsch', tag:'Kleine Spiele. Großer Spaß.', btn:'Mit einem Tipp installieren', gift:'Jetzt starten, großes Geschenk sichern!', soon:'Demnächst', ads:'Enthält Werbung und zufallsbasierte Items', priv:'Privacy policy'},
+  fr:{name:'Français', tag:'Petits jeux, grand plaisir.', btn:'Installer en un geste', gift:'Commencez maintenant, beau cadeau offert !', soon:'Bientôt', ads:'Contient des publicités et des objets aléatoires', priv:'Privacy policy'},
+  es:{name:'Español', tag:'Juegos pequeños, gran diversión.', btn:'Instalar con un toque', gift:'¡Empieza ahora y recibe un gran regalo!', soon:'Próximamente', ads:'Contiene anuncios y objetos aleatorios', priv:'Privacy policy'},
+  'pt-BR':{name:'Português', tag:'Jogos pequenos, diversão grande.', btn:'Instalar com um toque', gift:'Comece agora e ganhe um presentão!', soon:'Em breve', ads:'Contém anúncios e itens aleatórios', priv:'Privacy policy'},
+};
+const SRC = (new URLSearchParams(location.search).get('src') || 'linkpage').replace(/[^a-z0-9_]/gi, '');
+const isAndroid = /Android/i.test(navigator.userAgent);
+// 원클릭: 안드로이드에서는 Play 앱을 바로 연다(intent, 안 되면 Play 웹으로). 그 밖에서는 Play 웹 주소.
+function installUrl(pkg) {
+  const ref = 'utm_source=' + SRC + '&utm_medium=social&utm_campaign=launch';
+  const web = 'https://play.google.com/store/apps/details?id=' + pkg + '&referrer=' + encodeURIComponent(ref);
+  if (!isAndroid) return web;
+  return 'intent://details?id=' + pkg + '&referrer=' + encodeURIComponent(ref) +
+    '#Intent;scheme=market;package=com.android.vending;S.browser_fallback_url=' + encodeURIComponent(web) + ';end';
+}
+const PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4.2 2.6c-.3.3-.4.7-.4 1.2v16.4c0 .5.1.9.4 1.2l9.3-9.4L4.2 2.6zm10.6 7.8L5.6 1.2l.4.2 10.9 6.2-2.1 2.8zm0 3.2 2.1 2.8L6 22.6l-.4.2 9.2-9.2zm3.4-5.3 3.1 1.8c.9.5.9 1.3 0 1.8l-3.1 1.8-2.3-2.7 2.3-2.7z"/></svg>';
+function pickLang() {
+  let saved = null; try { saved = localStorage.getItem('jg_lang'); } catch (e) {}
+  for (const w of [saved, ...(navigator.languages || [navigator.language || 'en'])].filter(Boolean)) {
+    if (UI[w]) return w; const b = w.split('-')[0];
+    if (b === 'zh') return 'zh-TW'; if (b === 'pt') return 'pt-BR'; if (UI[b]) return b;
+  }
+  return 'en';
+}
+function title(g, l) { return g.t[l] || g.t.en; }
+function el(html) { const d = document.createElement('div'); d.innerHTML = html; return d.firstElementChild; }
+function render(l) {
+  const u = UI[l]; document.documentElement.lang = l;
+  document.getElementById('tag').textContent = u.tag;
+  document.getElementById('ads').textContent = u.ads;
+  const p = document.getElementById('privacy'); p.textContent = u.priv; p.href = l === 'ko' ? 'privacy-ko.html' : 'privacy-en.html';
+  const live = GAMES.filter(g => g.live).sort((a, b) => (b.day || '').localeCompare(a.day || ''));
+  const soon = GAMES.filter(g => !g.live);
+  const hero = document.getElementById('hero'); hero.innerHTML = '';
+  if (live.length) {
+    const g = live[0];
+    const h = el(`<section class="hero"><img src="icons/${g.n}.png" alt=""><b></b><div class="gift"></div><a class="btn">${PLAY}<span></span></a></section>`);
+    h.querySelector('b').textContent = title(g, l); h.querySelector('.gift').textContent = u.gift;
+    h.querySelector('a').href = installUrl(g.pkg); h.querySelector('a span').textContent = u.btn;
+    hero.appendChild(h);
+  }
+  const list = document.getElementById('list'); list.innerHTML = '';
+  [...live.slice(1), ...soon].forEach(g => {
+    const row = el(`<div class="game"><img src="icons/${g.n}.png" alt=""><div><b></b></div></div>`);
+    row.querySelector('b').textContent = title(g, l);
+    if (g.live) { const a = el(`<a class="btn">${PLAY}<span></span></a>`); a.href = installUrl(g.pkg); a.querySelector('span').textContent = u.btn; row.appendChild(a); }
+    else { const s = el('<span class="soon"></span>'); s.textContent = u.soon; row.appendChild(s); }
+    list.appendChild(row);
+  });
+}
+const sel = document.getElementById('hl');
+Object.entries(UI).forEach(([k, v]) => { const o = document.createElement('option'); o.value = k; o.textContent = v.name; sel.appendChild(o); });
+const first = pickLang(); sel.value = first; render(first);
+sel.onchange = () => { try { localStorage.setItem('jg_lang', sel.value); } catch (e) {} render(sel.value); };
+</script>
 </body>
 </html>
