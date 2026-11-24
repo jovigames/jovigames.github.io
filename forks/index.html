@@ -1,0 +1,74 @@
+<!doctype html>
+<!-- 07 설치 페이지 jovigames.github.io/forks/ — make-game-pages.mjs 로 만듦(직접 고치지 말 것). 안드로이드는 곧바로 Play, 그 밖은 설치 버튼. ?src= → utm_source. -->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>King of Forks: Roguelite RPG</title>
+<meta property="og:title" content="King of Forks: Roguelite RPG">
+<meta property="og:image" content="https://jovigames.github.io/links/icons/07.png">
+<style>
+  * { box-sizing:border-box; }
+  body { margin:0; background:linear-gradient(160deg,#160f3a,#3a2a9a); color:#fff; font-family:system-ui,-apple-system,"Apple SD Gothic Neo","Noto Sans KR","Noto Sans JP",sans-serif; min-height:100vh; }
+  main { max-width:520px; margin:0 auto; padding:24px max(16px, env(safe-area-inset-right)) 40px max(16px, env(safe-area-inset-left)); text-align:center; }
+  .icon { width:112px; height:112px; border-radius:26px; box-shadow:0 8px 24px #0006; }
+  h1 { font-size:24px; margin:14px 0 6px; line-height:1.3; }
+  .desc { color:#d9d4ff; font-size:15px; margin:0 0 6px; line-height:1.5; }
+  .gift { color:#ffd25e; font-size:14px; margin:0 0 16px; }
+  .btn { display:flex; flex-direction:column; align-items:center; justify-content:center; background:#ffd25e; color:#2a1a00; text-decoration:none; border-radius:18px; min-height:64px; padding:10px 16px; font-weight:800; font-size:20px; box-shadow:0 6px 18px #0005; }
+  .btn small { font-weight:600; font-size:12px; opacity:.8; }
+  .go { color:#c9c3f0; font-size:13px; min-height:18px; margin:8px 0 0; }
+  .shots { display:flex; gap:10px; justify-content:center; margin:20px 0 10px; }
+  .shots img { width:calc(50% - 5px); max-width:230px; border-radius:16px; background:#0003; aspect-ratio:9/17; object-fit:cover; }
+  .lang { margin:14px 0 6px; }
+  .lang select { font:inherit; font-size:13px; color:#fff; background:#ffffff1a; border:1px solid #ffffff33; border-radius:10px; padding:6px 10px; }
+  footer { color:#c9c3f0; font-size:12px; line-height:1.8; margin-top:8px; }
+  footer a { color:#fff; }
+</style>
+</head>
+<body>
+<main>
+  <img class="icon" src="../links/icons/07.png" alt="">
+  <h1 id="title"></h1>
+  <p class="desc" id="desc"></p>
+  <p class="gift" id="gift"></p>
+  <a class="btn" id="install" href="#"><span id="btn"></span><small id="sub"></small></a>
+  <p class="go" id="go"></p>
+  <div class="shots"><img id="s1" alt="" onerror="this.style.visibility='hidden'"><img id="s2" alt="" onerror="this.style.visibility='hidden'"></div>
+  <div class="lang"><select id="lang" aria-label="Language"></select></div>
+  <footer><span id="ads"></span><br><a id="more" href="../links/"></a> · Jovi Games</footer>
+</main>
+<script>
+const G = {"pkg":"com.wayfork.game","t":{"ko":"갈림길의 왕: 로그라이트 RPG","en":"King of Forks: Roguelite RPG","ja":"分かれ道の王：ローグライトRPG","zh-TW":"岔路之王：Roguelite RPG","de":"König der Wege: Roguelite-RPG","fr":"Roi des carrefours: Roguelite","es":"Rey de las encrucijadas: RPG","pt-BR":"Rei das encruzilhadas: RPG"},"d":{"ko":"갈림길마다 내가 고른다. 고른 길이 운명을 바꾼다!","en":"Every fork is your call. Pick a path, change your fate!","ja":"分かれ道ごとに自分で選ぶ。選んだ道が運命を変える！","zh-TW":"每個岔路由你決定，選的路改變命運！","de":"Jede Weggabelung ist deine Wahl. Wähle den Weg, ändere dein Schicksal!","fr":"À chaque carrefour, vous choisissez. Votre chemin change votre destin !","es":"Cada encrucijada es tu decisión. ¡Elige un camino y cambia tu destino!","pt-BR":"Cada encruzilhada é escolha sua. Escolha o caminho e mude o destino!"},"shots":{"ko":["shot-ko-1.webp","shot-ko-2.webp"],"en":["shot-en-1.webp","shot-en-2.webp"]}};
+const UI = {"ko":{"name":"한국어","btn":"무료 설치","sub":"Google Play에서 바로 설치","gift":"지금 시작하면 푸짐한 선물!","ads":"게임 내 광고, 확률형 아이템 포함","more":"다른 게임 보기","go":"Google Play로 이동 중…"},"en":{"name":"English","btn":"Install free","sub":"Get it on Google Play","gift":"Start now and get a big gift!","ads":"Contains ads and in-game random items","more":"More games","go":"Opening Google Play…"},"ja":{"name":"日本語","btn":"無料インストール","sub":"Google Playで今すぐ","gift":"今始めると豪華特典！","ads":"ゲーム内広告・ランダム型アイテムを含みます","more":"ほかのゲーム","go":"Google Playを開いています…"},"zh-TW":{"name":"繁體中文","btn":"免費安裝","sub":"立即在 Google Play 下載","gift":"現在開始就送豐富好禮！","ads":"含遊戲內廣告及隨機型道具","more":"更多遊戲","go":"正在開啟 Google Play…"},"de":{"name":"Deutsch","btn":"Kostenlos installieren","sub":"Jetzt bei Google Play","gift":"Jetzt starten, großes Geschenk sichern!","ads":"Enthält Werbung und zufallsbasierte Items","more":"Weitere Spiele","go":"Google Play wird geöffnet…"},"fr":{"name":"Français","btn":"Installer gratuitement","sub":"Disponible sur Google Play","gift":"Commencez maintenant, beau cadeau offert !","ads":"Contient des publicités et des objets aléatoires","more":"Autres jeux","go":"Ouverture de Google Play…"},"es":{"name":"Español","btn":"Instalar gratis","sub":"Disponible en Google Play","gift":"¡Empieza ahora y recibe un gran regalo!","ads":"Contiene anuncios y objetos aleatorios","more":"Más juegos","go":"Abriendo Google Play…"},"pt-BR":{"name":"Português","btn":"Instalar grátis","sub":"Disponível no Google Play","gift":"Comece agora e ganhe um presentão!","ads":"Contém anúncios e itens aleatórios","more":"Mais jogos","go":"Abrindo o Google Play…"}};
+const SRC = (new URLSearchParams(location.search).get('src') || 'gamepage').replace(/[^a-z0-9_]/gi, '');
+const isAndroid = /Android/i.test(navigator.userAgent);
+const ref = 'utm_source=' + SRC + '&utm_medium=social&utm_campaign=launch&utm_content=forks';
+const web = 'https://play.google.com/store/apps/details?id=' + G.pkg + '&referrer=' + encodeURIComponent(ref);
+function pickLang() {
+  let saved = null; try { saved = localStorage.getItem('jg_lang'); } catch (e) {}
+  const q = new URLSearchParams(location.search).get('lang');
+  for (const w of [q, saved, ...(navigator.languages || [navigator.language || 'en'])].filter(Boolean)) {
+    if (UI[w]) return w; const b = w.split('-')[0];
+    if (b === 'zh') return 'zh-TW'; if (b === 'pt') return 'pt-BR'; if (UI[b]) return b;
+  }
+  return 'en';
+}
+function render(L) {
+  const u = UI[L]; document.documentElement.lang = L;
+  document.getElementById('title').textContent = G.t[L] || G.t.en;
+  document.getElementById('desc').textContent = G.d[L] || G.d.en;
+  for (const k of ['gift', 'btn', 'sub', 'ads', 'more']) document.getElementById(k).textContent = u[k];
+  const s = L === 'ko' ? G.shots.ko : G.shots.en;
+  document.getElementById('s1').src = s[0]; document.getElementById('s2').src = s[1];
+}
+const sel = document.getElementById('lang');
+for (const [k, v] of Object.entries(UI)) { const o = document.createElement('option'); o.value = k; o.textContent = v.name; sel.appendChild(o); }
+let L = pickLang(); sel.value = L; render(L);
+sel.onchange = () => { L = sel.value; try { localStorage.setItem('jg_lang', L); } catch (e) {} render(L); };
+const a = document.getElementById('install'); a.href = web;
+// 안드로이드: 열자마자 Play 로 (Play 웹 주소는 안드로이드에서 Play 앱으로 열림). 뒤로 오면 버튼이 그대로 있다.
+if (isAndroid) { document.getElementById('go').textContent = UI[L].go; setTimeout(() => { location.href = web; }, 250); }
+</script>
+</body>
+</html>
