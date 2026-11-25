@@ -66,9 +66,12 @@ const sel = document.getElementById('lang');
 for (const [k, v] of Object.entries(UI)) { const o = document.createElement('option'); o.value = k; o.textContent = v.name; sel.appendChild(o); }
 let L = pickLang(); sel.value = L; render(L);
 sel.onchange = () => { L = sel.value; try { localStorage.setItem('jg_lang', L); } catch (e) {} render(L); };
-const a = document.getElementById('install'); a.href = web;
-// 안드로이드: 열자마자 Play 로 (Play 웹 주소는 안드로이드에서 Play 앱으로 열림). 뒤로 오면 버튼이 그대로 있다.
-if (isAndroid) { document.getElementById('go').textContent = UI[L].go; setTimeout(() => { location.href = web; }, 250); }
+// 안드로이드: Play 앱을 바로 여는 intent(인스타·유튜브·틱톡 앱 안 브라우저에서도 Play 앱으로 넘어감), 안 되면 Play 웹으로.
+const app = 'intent://details?id=' + G.pkg + '&referrer=' + encodeURIComponent(ref) +
+  '#Intent;scheme=market;package=com.android.vending;S.browser_fallback_url=' + encodeURIComponent(web) + ';end';
+const a = document.getElementById('install'); a.href = isAndroid ? app : web;
+// 열자마자 Play 로(1번 누름 = 설치 화면). 뒤로 오면 큰 설치 버튼이 그대로 있다.
+if (isAndroid) { document.getElementById('go').textContent = UI[L].go; setTimeout(() => { location.href = app; }, 200); }
 </script>
 </body>
 </html>
