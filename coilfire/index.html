@@ -20,14 +20,16 @@
   .go { color:#c9c3f0; font-size:13px; min-height:18px; margin:8px 0 0; }
   .shots { display:flex; gap:10px; justify-content:center; margin:20px 0 10px; }
   .shots img { width:calc(50% - 5px); max-width:230px; border-radius:16px; background:#0003; aspect-ratio:9/17; object-fit:cover; }
-  .lang { margin:14px 0 6px; }
-  .lang select { font:inherit; font-size:13px; color:#fff; background:#ffffff1a; border:1px solid #ffffff33; border-radius:10px; padding:6px 10px; }
+  .lang { display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin:0 0 16px; }
+  .lang button { font:inherit; font-size:14px; color:#fff; background:#ffffff1a; border:1px solid #ffffff40; border-radius:18px; min-height:36px; padding:6px 12px; cursor:pointer; }
+  .lang button[aria-pressed="true"] { background:#ffd25e; color:#2a1a00; border-color:#ffd25e; font-weight:800; }
   footer { color:#c9c3f0; font-size:12px; line-height:1.8; margin-top:8px; }
   footer a { color:#fff; }
 </style>
 </head>
 <body>
 <main>
+  <div class="lang" id="lang" role="group" aria-label="Language"></div>
   <img class="icon" src="../links/icons/10.png" alt="">
   <h1 id="title"></h1>
   <p class="desc" id="desc"></p>
@@ -35,7 +37,6 @@
   <a class="btn" id="install" href="#"><span id="btn"></span><small id="sub"></small></a>
   <p class="go" id="go"></p>
   <div class="shots"><img id="s1" alt="" onerror="this.style.visibility='hidden'"><img id="s2" alt="" onerror="this.style.visibility='hidden'"></div>
-  <div class="lang"><select id="lang" aria-label="Language"></select></div>
   <footer><span id="ads"></span><br><a id="more" href="../links/"></a> · Jovi Games</footer>
 </main>
 <script>
@@ -63,9 +64,11 @@ function render(L) {
   document.getElementById('s1').src = s[0]; document.getElementById('s2').src = s[1];
 }
 const sel = document.getElementById('lang');
-for (const [k, v] of Object.entries(UI)) { const o = document.createElement('option'); o.value = k; o.textContent = v.name; sel.appendChild(o); }
-let L = pickLang(); sel.value = L; render(L);
-sel.onchange = () => { L = sel.value; try { localStorage.setItem('jg_lang', L); } catch (e) {} render(L); };
+// 언어: 맨 위 버튼 한 줄, 한 번 누르면 바뀜(사용자 11-26 "언어 선택이 쉬워야").
+const mark = () => sel.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.l === L)));
+for (const [k, v] of Object.entries(UI)) { const b = document.createElement('button'); b.type = 'button'; b.dataset.l = k; b.lang = k; b.textContent = v.name;
+  b.onclick = () => { L = k; try { localStorage.setItem('jg_lang', L); } catch (e) {} render(L); mark(); }; sel.appendChild(b); }
+let L = pickLang(); render(L); mark();
 // 안드로이드: Play 앱을 바로 여는 intent(인스타·유튜브·틱톡 앱 안 브라우저에서도 Play 앱으로 넘어감), 안 되면 Play 웹으로.
 const app = 'intent://details?id=' + G.pkg + '&referrer=' + encodeURIComponent(ref) +
   '#Intent;scheme=market;package=com.android.vending;S.browser_fallback_url=' + encodeURIComponent(web) + ';end';
