@@ -1,0 +1,74 @@
+<!doctype html>
+<!-- 10 설치 페이지 jovigames.github.io/coilfire/ — make-game-pages.mjs 로 만듦(직접 고치지 말 것). 안드로이드는 곧바로 Play, 그 밖은 설치 버튼. ?src= → utm_source. -->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Idle Dragon Train: Survivor</title>
+<meta property="og:title" content="Idle Dragon Train: Survivor">
+<meta property="og:image" content="https://jovigames.github.io/links/icons/10.png">
+<style>
+  * { box-sizing:border-box; }
+  body { margin:0; background:linear-gradient(160deg,#160f3a,#3a2a9a); color:#fff; font-family:system-ui,-apple-system,"Apple SD Gothic Neo","Noto Sans KR","Noto Sans JP",sans-serif; min-height:100vh; }
+  main { max-width:520px; margin:0 auto; padding:24px max(16px, env(safe-area-inset-right)) 40px max(16px, env(safe-area-inset-left)); text-align:center; }
+  .icon { width:112px; height:112px; border-radius:26px; box-shadow:0 8px 24px #0006; }
+  h1 { font-size:24px; margin:14px 0 6px; line-height:1.3; }
+  .desc { color:#d9d4ff; font-size:15px; margin:0 0 6px; line-height:1.5; }
+  .gift { color:#ffd25e; font-size:14px; margin:0 0 16px; }
+  .btn { display:flex; flex-direction:column; align-items:center; justify-content:center; background:#ffd25e; color:#2a1a00; text-decoration:none; border-radius:18px; min-height:64px; padding:10px 16px; font-weight:800; font-size:20px; box-shadow:0 6px 18px #0005; }
+  .btn small { font-weight:600; font-size:12px; opacity:.8; }
+  .go { color:#c9c3f0; font-size:13px; min-height:18px; margin:8px 0 0; }
+  .shots { display:flex; gap:10px; justify-content:center; margin:20px 0 10px; }
+  .shots img { width:calc(50% - 5px); max-width:230px; border-radius:16px; background:#0003; aspect-ratio:9/17; object-fit:cover; }
+  .lang { margin:14px 0 6px; }
+  .lang select { font:inherit; font-size:13px; color:#fff; background:#ffffff1a; border:1px solid #ffffff33; border-radius:10px; padding:6px 10px; }
+  footer { color:#c9c3f0; font-size:12px; line-height:1.8; margin-top:8px; }
+  footer a { color:#fff; }
+</style>
+</head>
+<body>
+<main>
+  <img class="icon" src="../links/icons/10.png" alt="">
+  <h1 id="title"></h1>
+  <p class="desc" id="desc"></p>
+  <p class="gift" id="gift"></p>
+  <a class="btn" id="install" href="#"><span id="btn"></span><small id="sub"></small></a>
+  <p class="go" id="go"></p>
+  <div class="shots"><img id="s1" alt="" onerror="this.style.visibility='hidden'"><img id="s2" alt="" onerror="this.style.visibility='hidden'"></div>
+  <div class="lang"><select id="lang" aria-label="Language"></select></div>
+  <footer><span id="ads"></span><br><a id="more" href="../links/"></a> · Jovi Games</footer>
+</main>
+<script>
+const G = {"pkg":"com.coilfire.game","t":{"ko":"용열차 키우기","en":"Idle Dragon Train: Survivor","ja":"ドラゴン列車育成","zh-TW":"龍列車養成","de":"Drachenzug Idle: Survivor","fr":"Train Dragon Idle : Survivant","es":"Tren Dragón Idle: Survivor","pt-BR":"Trem Dragão Idle: Survivor"},"d":{"ko":"달리는 용열차가 몰려오는 적을 쓸어 버린다. 키우고 각성해 끝까지 버텨라!","en":"Your dragon train sweeps through the swarm. Grow it, awaken it, survive to the end!","ja":"走るドラゴン列車が押し寄せる敵を一掃！育てて覚醒させ、最後まで生き残れ！","zh-TW":"奔馳的龍列車橫掃來襲的敵人！培養、覺醒，撐到最後！","de":"Dein Drachenzug fegt durch die Horden. Ausbauen, erwecken, bis zum Ende überleben!","fr":"Votre train dragon balaie la horde. Améliorez-le, éveillez-le, survivez jusqu'au bout !","es":"¡Tu tren dragón arrasa con la horda! Mejóralo, despiértalo y sobrevive hasta el final.","pt-BR":"Seu trem dragão varre a horda! Evolua, desperte e sobreviva até o fim!"},"shots":{"ko":["shot-ko-1.webp","shot-ko-2.webp"],"en":["shot-en-1.webp","shot-en-2.webp"]}};
+const UI = {"ko":{"name":"한국어","btn":"무료 설치","sub":"Google Play에서 바로 설치","gift":"지금 시작하면 푸짐한 선물!","ads":"게임 내 광고, 확률형 아이템 포함","more":"다른 게임 보기","go":"Google Play로 이동 중…"},"en":{"name":"English","btn":"Install free","sub":"Get it on Google Play","gift":"Start now and get a big gift!","ads":"Contains ads and in-game random items","more":"More games","go":"Opening Google Play…"},"ja":{"name":"日本語","btn":"無料インストール","sub":"Google Playで今すぐ","gift":"今始めると豪華特典！","ads":"ゲーム内広告・ランダム型アイテムを含みます","more":"ほかのゲーム","go":"Google Playを開いています…"},"zh-TW":{"name":"繁體中文","btn":"免費安裝","sub":"立即在 Google Play 下載","gift":"現在開始就送豐富好禮！","ads":"含遊戲內廣告及隨機型道具","more":"更多遊戲","go":"正在開啟 Google Play…"},"de":{"name":"Deutsch","btn":"Kostenlos installieren","sub":"Jetzt bei Google Play","gift":"Jetzt starten, großes Geschenk sichern!","ads":"Enthält Werbung und zufallsbasierte Items","more":"Weitere Spiele","go":"Google Play wird geöffnet…"},"fr":{"name":"Français","btn":"Installer gratuitement","sub":"Disponible sur Google Play","gift":"Commencez maintenant, beau cadeau offert !","ads":"Contient des publicités et des objets aléatoires","more":"Autres jeux","go":"Ouverture de Google Play…"},"es":{"name":"Español","btn":"Instalar gratis","sub":"Disponible en Google Play","gift":"¡Empieza ahora y recibe un gran regalo!","ads":"Contiene anuncios y objetos aleatorios","more":"Más juegos","go":"Abriendo Google Play…"},"pt-BR":{"name":"Português","btn":"Instalar grátis","sub":"Disponível no Google Play","gift":"Comece agora e ganhe um presentão!","ads":"Contém anúncios e itens aleatórios","more":"Mais jogos","go":"Abrindo o Google Play…"}};
+const SRC = (new URLSearchParams(location.search).get('src') || 'gamepage').replace(/[^a-z0-9_]/gi, '');
+const isAndroid = /Android/i.test(navigator.userAgent);
+const ref = 'utm_source=' + SRC + '&utm_medium=social&utm_campaign=coilfire&utm_content=gamepage';
+const web = 'https://play.google.com/store/apps/details?id=' + G.pkg + '&referrer=' + encodeURIComponent(ref);
+function pickLang() {
+  let saved = null; try { saved = localStorage.getItem('jg_lang'); } catch (e) {}
+  const q = new URLSearchParams(location.search).get('lang');
+  for (const w of [q, saved, ...(navigator.languages || [navigator.language || 'en'])].filter(Boolean)) {
+    if (UI[w]) return w; const b = w.split('-')[0];
+    if (b === 'zh') return 'zh-TW'; if (b === 'pt') return 'pt-BR'; if (UI[b]) return b;
+  }
+  return 'en';
+}
+function render(L) {
+  const u = UI[L]; document.documentElement.lang = L;
+  document.getElementById('title').textContent = G.t[L] || G.t.en;
+  document.getElementById('desc').textContent = G.d[L] || G.d.en;
+  for (const k of ['gift', 'btn', 'sub', 'ads', 'more']) document.getElementById(k).textContent = u[k];
+  const s = L === 'ko' ? G.shots.ko : G.shots.en;
+  document.getElementById('s1').src = s[0]; document.getElementById('s2').src = s[1];
+}
+const sel = document.getElementById('lang');
+for (const [k, v] of Object.entries(UI)) { const o = document.createElement('option'); o.value = k; o.textContent = v.name; sel.appendChild(o); }
+let L = pickLang(); sel.value = L; render(L);
+sel.onchange = () => { L = sel.value; try { localStorage.setItem('jg_lang', L); } catch (e) {} render(L); };
+const a = document.getElementById('install'); a.href = web;
+// 안드로이드: 열자마자 Play 로 (Play 웹 주소는 안드로이드에서 Play 앱으로 열림). 뒤로 오면 버튼이 그대로 있다.
+if (isAndroid) { document.getElementById('go').textContent = UI[L].go; setTimeout(() => { location.href = web; }, 250); }
+</script>
+</body>
+</html>
