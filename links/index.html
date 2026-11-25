@@ -84,7 +84,7 @@ const SRC = (new URLSearchParams(location.search).get('src') || 'linkpage').repl
 const isAndroid = /Android/i.test(navigator.userAgent);
 // 원클릭: 안드로이드에서는 Play 앱을 바로 연다(intent, 안 되면 Play 웹으로). 그 밖에서는 Play 웹 주소.
 function installUrl(pkg) {
-  const ref = 'utm_source=' + SRC + '&utm_medium=social&utm_campaign=launch';
+  const ref = 'utm_source=' + SRC + '&utm_medium=social&utm_campaign=' + pkg.split('.')[1] + '&utm_content=hub';
   const web = 'https://play.google.com/store/apps/details?id=' + pkg + '&referrer=' + encodeURIComponent(ref);
   if (!isAndroid) return web;
   return 'intent://details?id=' + pkg + '&referrer=' + encodeURIComponent(ref) +
