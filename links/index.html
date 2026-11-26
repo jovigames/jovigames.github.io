@@ -17,8 +17,9 @@
   header img { width:72px; height:72px; border-radius:20px; }
   h1 { margin:8px 0 2px; font-size:24px; }
   .tag { color:var(--sub); font-size:14px; }
-  .lang { display:flex; justify-content:center; margin:10px 0 16px; }
-  .lang select { font:inherit; font-size:13px; color:var(--ink); background:#ffffff1a; border:1px solid #ffffff33; border-radius:10px; padding:6px 10px; }
+  .lang { display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin:10px 0 16px; }
+  .lang button { font:inherit; font-size:14px; color:var(--ink); background:#ffffff1a; border:1px solid #ffffff40; border-radius:18px; min-height:36px; padding:6px 12px; cursor:pointer; }
+  .lang button[aria-pressed="true"] { background:var(--gold); color:var(--gold-ink); border-color:var(--gold); font-weight:800; }
   .hero { background:var(--card); border:2px solid var(--gold); border-radius:20px; padding:16px; margin-bottom:16px; text-align:center; }
   .hero img { width:96px; height:96px; border-radius:24px; }
   .hero b { display:block; font-size:19px; margin:8px 0 2px; }
@@ -39,12 +40,12 @@
 </head>
 <body>
 <main>
+  <div class="lang" id="hl" role="group" aria-label="Language"></div>
   <header>
     <img src="profile.png" alt="Jovi Games">
     <h1>Jovi Games</h1>
     <div class="tag" id="tag"></div>
   </header>
-  <div class="lang"><select id="hl" aria-label="Language"></select></div>
   <div id="hero"></div>
   <div id="list"></div>
   <div class="ch">
@@ -57,7 +58,7 @@
 <script>
 // 게임 목록. live: 출시했으면 true, day: 출시일(최근 출시가 맨 위). 아이콘은 icons/NN.png(최신 승인 아이콘으로 유지).
 const GAMES = [
-  { n:'01', pkg:'com.rollguard.game',    live:false, day:'', t:{"ko": "랜덤 정령 디펜스: 역전 강림", "en": "Random Spirit Defense: Legend", "ja": "ランダム精霊ディフェンス：逆転降臨", "zh-TW": "隨機精靈塔防：逆轉降臨", "de": "Geister-Defense: Legende", "fr": "Défense d'esprits : Légende", "es": "Defensa de espíritus: Leyenda", "pt-BR": "Defesa de Espíritos: Lenda"} },
+  { n:'01', pkg:'com.rollguard.game',    live:true, day:'2026-11-27', t:{"ko": "랜덤 정령 디펜스: 역전 강림", "en": "Random Spirit Defense: Legend", "ja": "ランダム精霊ディフェンス：逆転降臨", "zh-TW": "隨機精靈塔防：逆轉降臨", "de": "Geister-Defense: Legende", "fr": "Défense d'esprits : Légende", "es": "Defensa de espíritus: Leyenda", "pt-BR": "Defesa de Espíritos: Lenda"} },
   { n:'02', pkg:'com.deadwall.game',     live:false, day:'', t:{"ko": "방벽 디펜스: 고철 터렛", "en": "Rampart Defense: Scrap Turret", "ja": "防壁ディフェンス：鉄くず砲台", "zh-TW": "壁壘塔防：廢鐵砲塔", "de": "Wall-Defense: Schrottgeschütz", "fr": "Défense rempart : Tourelles", "es": "Defensa muralla: Torretas", "pt-BR": "Defesa da Muralha: Torretas"} },
   { n:'03', pkg:'com.petalsecrets.game', live:false, day:'', t:{"ko": "꽃다발 속 비밀: 꽃말 암호", "en": "Secret in the Bouquet", "zh-TW": "花束裡的秘密：花語密碼", "de": "Das Geheimnis im Strauß", "fr": "Le secret du bouquet", "es": "El secreto del ramo", "pt-BR": "O segredo do buquê"} },
   { n:'04', pkg:'com.raccoonroll.game',  live:false, day:'', t:{"ko": "너구리 다이스: 한탕 보드", "en": "Raccoon Dice: Heist Board", "ja": "ラクーンダイス：お宝ボード", "zh-TW": "浣熊骰子：大盜棋盤", "de": "Waschbär-Würfel: Beutebrett", "fr": "Dés du Raton : Plateau Butin", "es": "Dados Mapache: Tablero Botín", "pt-BR": "Dados do Guaxinim: Assalto"} },
@@ -126,9 +127,12 @@ function render(l) {
   });
 }
 const sel = document.getElementById('hl');
-Object.entries(UI).forEach(([k, v]) => { const o = document.createElement('option'); o.value = k; o.textContent = v.name; sel.appendChild(o); });
-const first = pickLang(); sel.value = first; render(first);
-sel.onchange = () => { try { localStorage.setItem('jg_lang', sel.value); } catch (e) {} render(sel.value); };
+// 언어: 맨 위 버튼 한 줄, 한 번 누르면 바뀜(사용자 11-26 "언어 선택이 쉬워야").
+let cur = pickLang();
+const mark = () => sel.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.l === cur)));
+Object.entries(UI).forEach(([k, v]) => { const b = document.createElement('button'); b.type = 'button'; b.dataset.l = k; b.lang = k; b.textContent = v.name;
+  b.onclick = () => { cur = k; try { localStorage.setItem('jg_lang', k); } catch (e) {} render(k); mark(); }; sel.appendChild(b); });
+render(cur); mark();
 </script>
 </body>
 </html>
