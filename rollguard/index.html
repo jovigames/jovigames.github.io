@@ -1,0 +1,80 @@
+<!doctype html>
+<!-- 01 설치 페이지 jovigames.github.io/rollguard/ — make-game-pages.mjs 로 만듦(직접 고치지 말 것). 안드로이드는 곧바로 Play, 그 밖은 설치 버튼. ?src= → utm_source. -->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Random Spirit Defense: Legend</title>
+<meta property="og:title" content="Random Spirit Defense: Legend">
+<meta property="og:image" content="https://jovigames.github.io/links/icons/01.png">
+<style>
+  * { box-sizing:border-box; }
+  body { margin:0; background:linear-gradient(160deg,#160f3a,#3a2a9a); color:#fff; font-family:system-ui,-apple-system,"Apple SD Gothic Neo","Noto Sans KR","Noto Sans JP",sans-serif; min-height:100vh; }
+  main { max-width:520px; margin:0 auto; padding:24px max(16px, env(safe-area-inset-right)) 40px max(16px, env(safe-area-inset-left)); text-align:center; }
+  .icon { width:112px; height:112px; border-radius:26px; box-shadow:0 8px 24px #0006; }
+  h1 { font-size:24px; margin:14px 0 6px; line-height:1.3; }
+  .desc { color:#d9d4ff; font-size:15px; margin:0 0 6px; line-height:1.5; }
+  .gift { color:#ffd25e; font-size:14px; margin:0 0 16px; }
+  .btn { display:flex; flex-direction:column; align-items:center; justify-content:center; background:#ffd25e; color:#2a1a00; text-decoration:none; border-radius:18px; min-height:64px; padding:10px 16px; font-weight:800; font-size:20px; box-shadow:0 6px 18px #0005; }
+  .btn small { font-weight:600; font-size:12px; opacity:.8; }
+  .go { color:#c9c3f0; font-size:13px; min-height:18px; margin:8px 0 0; }
+  .shots { display:flex; gap:10px; justify-content:center; margin:20px 0 10px; }
+  .shots img { width:calc(50% - 5px); max-width:230px; border-radius:16px; background:#0003; aspect-ratio:9/17; object-fit:cover; }
+  .lang { display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin:0 0 16px; }
+  .lang button { font:inherit; font-size:14px; color:#fff; background:#ffffff1a; border:1px solid #ffffff40; border-radius:18px; min-height:36px; padding:6px 12px; cursor:pointer; }
+  .lang button[aria-pressed="true"] { background:#ffd25e; color:#2a1a00; border-color:#ffd25e; font-weight:800; }
+  footer { color:#c9c3f0; font-size:12px; line-height:1.8; margin-top:8px; }
+  footer a { color:#fff; }
+</style>
+</head>
+<body>
+<main>
+  <div class="lang" id="lang" role="group" aria-label="Language"></div>
+  <img class="icon" src="../links/icons/01.png" alt="">
+  <h1 id="title"></h1>
+  <p class="desc" id="desc"></p>
+  <p class="gift" id="gift"></p>
+  <a class="btn" id="install" href="#"><span id="btn"></span><small id="sub"></small></a>
+  <p class="go" id="go"></p>
+  <div class="shots"><img id="s1" alt="" onerror="this.style.visibility='hidden'"><img id="s2" alt="" onerror="this.style.visibility='hidden'"></div>
+  <footer><span id="ads"></span><br><a id="more" href="../links/"></a> · Jovi Games</footer>
+</main>
+<script>
+const G = {"pkg":"com.rollguard.game","t":{"ko":"랜덤 정령 디펜스: 역전 강림","en":"Random Spirit Defense: Legend","ja":"ランダム精霊ディフェンス：逆転降臨","zh-TW":"隨機精靈塔防：逆轉降臨","de":"Geister-Defense: Legende","fr":"Défense d'esprits : Légende","es":"Defensa de espíritus: Leyenda","pt-BR":"Defesa de Espíritos: Lenda"},"d":{"ko":"정령을 뽑아 막아라. 무너지기 직전, 전설이 내려와 판을 뒤집는다!","en":"Summon spirits and hold the line. Right before it falls, a legend descends and flips the fight!","ja":"精霊を召喚して守り抜け。崩れる寸前、伝説が降臨して逆転！","zh-TW":"召喚精靈守住防線。就在崩潰前一刻，傳說降臨逆轉戰局！","de":"Beschwöre Geister und halte die Linie. Kurz vor dem Fall kommt eine Legende und dreht den Kampf!","fr":"Invoque des esprits et tiens bon. Juste avant la chute, une légende descend et renverse tout !","es":"Invoca espíritus y aguanta. Justo antes de caer, una leyenda desciende y da la vuelta a la batalla.","pt-BR":"Invoque espíritos e segure a linha. Antes de cair, uma lenda desce e vira o jogo!"},"shots":{"ko":["shot-ko-1.webp","shot-ko-2.webp"],"en":["shot-en-1.webp","shot-en-2.webp"]}};
+const UI = {"ko":{"name":"한국어","btn":"무료 설치","sub":"Google Play에서 바로 설치","gift":"지금 시작하면 푸짐한 선물!","ads":"게임 내 광고, 확률형 아이템 포함","more":"다른 게임 보기","go":"Google Play로 이동 중…"},"en":{"name":"English","btn":"Install free","sub":"Get it on Google Play","gift":"Start now and get a big gift!","ads":"Contains ads and in-game random items","more":"More games","go":"Opening Google Play…"},"ja":{"name":"日本語","btn":"無料インストール","sub":"Google Playで今すぐ","gift":"今始めると豪華特典！","ads":"ゲーム内広告・ランダム型アイテムを含みます","more":"ほかのゲーム","go":"Google Playを開いています…"},"zh-TW":{"name":"繁體中文","btn":"免費安裝","sub":"立即在 Google Play 下載","gift":"現在開始就送豐富好禮！","ads":"含遊戲內廣告及隨機型道具","more":"更多遊戲","go":"正在開啟 Google Play…"},"de":{"name":"Deutsch","btn":"Kostenlos installieren","sub":"Jetzt bei Google Play","gift":"Jetzt starten, großes Geschenk sichern!","ads":"Enthält Werbung und zufallsbasierte Items","more":"Weitere Spiele","go":"Google Play wird geöffnet…"},"fr":{"name":"Français","btn":"Installer gratuitement","sub":"Disponible sur Google Play","gift":"Commencez maintenant, beau cadeau offert !","ads":"Contient des publicités et des objets aléatoires","more":"Autres jeux","go":"Ouverture de Google Play…"},"es":{"name":"Español","btn":"Instalar gratis","sub":"Disponible en Google Play","gift":"¡Empieza ahora y recibe un gran regalo!","ads":"Contiene anuncios y objetos aleatorios","more":"Más juegos","go":"Abriendo Google Play…"},"pt-BR":{"name":"Português","btn":"Instalar grátis","sub":"Disponível no Google Play","gift":"Comece agora e ganhe um presentão!","ads":"Contém anúncios e itens aleatórios","more":"Mais jogos","go":"Abrindo o Google Play…"}};
+const SRC = (new URLSearchParams(location.search).get('src') || 'gamepage').replace(/[^a-z0-9_]/gi, '');
+const isAndroid = /Android/i.test(navigator.userAgent);
+const ref = 'utm_source=' + SRC + '&utm_medium=social&utm_campaign=rollguard&utm_content=gamepage';
+const web = 'https://play.google.com/store/apps/details?id=' + G.pkg + '&referrer=' + encodeURIComponent(ref);
+function pickLang() {
+  let saved = null; try { saved = localStorage.getItem('jg_lang'); } catch (e) {}
+  const q = new URLSearchParams(location.search).get('lang');
+  for (const w of [q, saved, ...(navigator.languages || [navigator.language || 'en'])].filter(Boolean)) {
+    if (UI[w]) return w; const b = w.split('-')[0];
+    if (b === 'zh') return 'zh-TW'; if (b === 'pt') return 'pt-BR'; if (UI[b]) return b;
+  }
+  return 'en';
+}
+function render(L) {
+  const u = UI[L]; document.documentElement.lang = L;
+  document.getElementById('title').textContent = G.t[L] || G.t.en;
+  document.getElementById('desc').textContent = G.d[L] || G.d.en;
+  for (const k of ['gift', 'btn', 'sub', 'ads', 'more']) document.getElementById(k).textContent = u[k];
+  const s = L === 'ko' ? G.shots.ko : G.shots.en;
+  document.getElementById('s1').src = s[0]; document.getElementById('s2').src = s[1];
+}
+const sel = document.getElementById('lang');
+// 언어: 맨 위 버튼 한 줄, 한 번 누르면 바뀜(사용자 11-26 "언어 선택이 쉬워야").
+const mark = () => sel.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.l === L)));
+for (const [k, v] of Object.entries(UI)) { const b = document.createElement('button'); b.type = 'button'; b.dataset.l = k; b.lang = k; b.textContent = v.name;
+  b.onclick = () => { L = k; try { localStorage.setItem('jg_lang', L); } catch (e) {} render(L); mark(); }; sel.appendChild(b); }
+let L = pickLang(); render(L); mark();
+// 안드로이드: Play 앱을 바로 여는 intent(인스타·유튜브·틱톡 앱 안 브라우저에서도 Play 앱으로 넘어감), 안 되면 Play 웹으로.
+const app = 'intent://details?id=' + G.pkg + '&referrer=' + encodeURIComponent(ref) +
+  '#Intent;scheme=market;package=com.android.vending;S.browser_fallback_url=' + encodeURIComponent(web) + ';end';
+const a = document.getElementById('install'); a.href = isAndroid ? app : web;
+// 열자마자 Play 로(1번 누름 = 설치 화면). 뒤로 오면 큰 설치 버튼이 그대로 있다.
+if (isAndroid) { document.getElementById('go').textContent = UI[L].go; setTimeout(() => { location.href = app; }, 200); }
+</script>
+</body>
+</html>
